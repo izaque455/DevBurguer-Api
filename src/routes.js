@@ -6,6 +6,7 @@ import multer from 'multer';
 import multerConfig from './config/multer.cjs';
 import authMiddleware from './middlewares/auth.js';
 import CategoryController from './app/controllers/CategoryController.js';
+import adminMiddleware from './middlewares/admin.js';
 
 const routes = new Router();
 
@@ -18,10 +19,17 @@ routes.post('/session', SessionController.store); // Login
 // Precisa de Um token
 routes.use(authMiddleware);
 
-routes.post('/products', upload.single('file'), ProductController.store); // Criar Produto
+routes.post(
+  '/products',
+  adminMiddleware, // Criar Categoria --- o adminMiddleware server para verificar se o Usuário é admin ou não para fazer algumas atividades
+
+  upload.single('file'),
+  ProductController.store,
+); // Criar Produto
 routes.get('/products', ProductController.index); // Listar Produto
 
-routes.post('/categories', CategoryController.store); // Criar Categoria
+routes.post('/categories', adminMiddleware, CategoryController.store); // Criar Categoria --- o adminMiddleware server para verificar
+// se o Usuário é admin ou não para fazer algumas atividades
 routes.get('/categories', CategoryController.index); // Listar Categoria
 
 export default routes;
