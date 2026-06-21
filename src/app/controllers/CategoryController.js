@@ -15,12 +15,23 @@ class CategoryController {
 
     const { name } = request.body; // pegando A informação do nosso produto para salva no banco de dados
 
+    const existingCategory = await Category.findOne({
+      where: {
+        name,
+      },
+    });
+
+    if (existingCategory) {
+      response.status(400).json({ error: 'Category already exists!' });
+    }
+
     const newCategory = await Category.create({
       name,
     });
 
     return response.status(201).json(newCategory);
   }
+
   async index(_request, response) {
     const categories = await Category.findAll();
 
