@@ -43,6 +43,13 @@ routes.post(
 ); // Criar Categoria --- o adminMiddleware server para verificar
 // se o Usuário é admin ou não para fazer algumas atividades
 
+routes.put(
+  '/categories/:id',
+  adminMiddleware,
+  upload.single('file'),
+  CategoryController.update,
+);
+
 routes.get('/categories', CategoryController.index); // Listar Categoria
 
 export default routes;
