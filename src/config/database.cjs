@@ -12,4 +12,4 @@ module.exports = {
   },
 };
 
-// Esse arquivo é para o sequelize poder acessar o banco de Dados
+// Esse arquivo é para o sequelize poder Conectar com o banco de Dados

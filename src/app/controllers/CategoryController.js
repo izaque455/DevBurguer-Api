@@ -44,7 +44,7 @@ class CategoryController {
       return response.status(400).json(error.errors);
     }
 
-    const { name } = request.body; // pegando A informação do nosso produto para salva no banco de dados
+    const { name } = request.body;
     const { id } = request.params;
 
     let path;

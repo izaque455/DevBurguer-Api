@@ -45,7 +45,7 @@ class SessionController {
       emailOrPasswordIncorrect();
     }
     const token = jwt.sign(
-      { id: existingUser.id, admin: existingUser.admin }, // passamos o admim para o Auth.js, para podemos fazer a verificação
+      { id: existingUser.id, admin: existingUser.admin },
       authConfig.secret,
       {
         expiresIn: authConfig.expiresIn,

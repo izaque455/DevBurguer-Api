@@ -12,44 +12,40 @@ const routes = new Router();
 
 const upload = multer(multerConfig);
 
-// Não precisa de Um token
-routes.post('/users', UserControllers.store); // Cadastro
-routes.post('/session', SessionController.store); // Login
+routes.post('/users', UserControllers.store);
+routes.post('/session', SessionController.store);
 
-// Precisa de Um token
 routes.use(authMiddleware);
 
 routes.post(
   '/products',
-  adminMiddleware, // Criar Categoria --- o adminMiddleware server para verificar se o Usuário é admin ou não para fazer algumas atividades
+  adminMiddleware,
   upload.single('file'),
   ProductController.store,
-); // Criar Produto
+);
 
 routes.put(
   '/products/:id',
   adminMiddleware,
   upload.single('file'),
   ProductController.update,
-); // Atualiza a ategoria
+);
 
-routes.get('/products', ProductController.index); // Listar Produto
+routes.get('/products', ProductController.index);
 
 routes.post(
   '/categories',
   adminMiddleware,
   upload.single('file'),
   CategoryController.store,
-); // Criar Categoria --- o adminMiddleware server para verificar
-// se o Usuário é admin ou não para fazer algumas atividades
-
-routes.put(
+);
++routes.put(
   '/categories/:id',
   adminMiddleware,
   upload.single('file'),
   CategoryController.update,
 );
 
-routes.get('/categories', CategoryController.index); // Listar Categoria
+routes.get('/categories', CategoryController.index);
 
 export default routes;

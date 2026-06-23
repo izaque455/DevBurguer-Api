@@ -44,7 +44,7 @@ class ProductController {
       return response.status(400).json(error.errors);
     }
 
-    const { name, price, category_id, offer } = request.body; // pegando A informação do nosso produto para salva no banco de dados
+    const { name, price, category_id, offer } = request.body;
 
     const { id } = request.params;
 

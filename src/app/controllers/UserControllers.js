@@ -1,10 +1,3 @@
-/* Metodos que O controller usa:
-store: para criar,
-index: Lista todos os dados,
-show: para busca um dado espeficio, 
-update: atualiza dados
-
-*/
 import bcrypt from 'bcrypt';
 import * as Yup from 'yup';
 import { v4 } from 'uuid';
@@ -26,7 +19,6 @@ class UserController {
 
     const { name, email, password, admin } = request.body;
 
-    // verificação Se já existe o Usuário
     const existingUser = await User.findOne({
       where: {
         email,
@@ -37,9 +29,7 @@ class UserController {
       response.status(400).json('Email  already taken!');
     }
 
-    // Onde: busca usuário pelo e-mail (FindOne + Where) para checar duplicidade antes de cadastrar.
-
-    const password_hash = await bcrypt.hash(password, 10); // Cripitografano a senha do Usuário
+    const password_hash = await bcrypt.hash(password, 10);
 
     const user = await User.create({
       id: v4(),
@@ -51,7 +41,7 @@ class UserController {
 
     return response.status(201).json({
       id: user.id,
-      name: user.name, // Oq vai retornar é so isso para não da falha de segurança
+      name: user.name,
       email: user.email,
       admin: user.admin,
     });
