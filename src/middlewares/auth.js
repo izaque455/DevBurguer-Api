@@ -13,7 +13,7 @@ const authMiddleware = (request, response, next) => {
       if (error) {
         throw Error();
       }
-      console.log(decoded);
+
       request.userId = decoded.id;
 
       request.userIsAdmin = decoded.admin; // Criamos um campo com o Nome userIsAdmin, que o valor é se o usuário é admin ou não

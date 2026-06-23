@@ -22,14 +22,27 @@ routes.use(authMiddleware);
 routes.post(
   '/products',
   adminMiddleware, // Criar Categoria --- o adminMiddleware server para verificar se o Usuário é admin ou não para fazer algumas atividades
-
   upload.single('file'),
   ProductController.store,
 ); // Criar Produto
+
+routes.put(
+  '/products/:id',
+  adminMiddleware,
+  upload.single('file'),
+  ProductController.update,
+); // Atualiza a ategoria
+
 routes.get('/products', ProductController.index); // Listar Produto
 
-routes.post('/categories', adminMiddleware, CategoryController.store); // Criar Categoria --- o adminMiddleware server para verificar
+routes.post(
+  '/categories',
+  adminMiddleware,
+  upload.single('file'),
+  CategoryController.store,
+); // Criar Categoria --- o adminMiddleware server para verificar
 // se o Usuário é admin ou não para fazer algumas atividades
+
 routes.get('/categories', CategoryController.index); // Listar Categoria
 
 export default routes;
