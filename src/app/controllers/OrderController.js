@@ -63,6 +63,34 @@ class OrdertController {
 
     return response.status(201).json(newOrder);
   }
+  async update(request, response) {
+    const schema = Yup.object({
+      status: Yup.string().required(),
+    });
+
+    try {
+      schema.validateSync(request.body, { abortEarly: false, strict: true });
+    } catch (error) {
+      return response.status(400).json(error.errors);
+    }
+
+    const { status } = request.body;
+    const { id } = request.params;
+    try {
+      await Order.updateOne({ _id: id }, { status });
+    } catch (error) {
+      return response.status(400).json({ error: error.message });
+    }
+
+    return response
+      .status(200)
+      .json({ menssage: 'Status successfully updated' });
+  }
+  async index(_request, response) {
+    const orders = await Order.find();
+
+    return response.status(201).json(orders);
+  }
 }
 
 export default new OrdertController();
